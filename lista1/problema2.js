@@ -4,7 +4,7 @@
 
 	  var xScale = d3.scaleLinear().domain([0,100]).range([0,width]);
       var yScale = d3.scaleLinear().domain([0,100]).range([height,0]);
-      var zScale = d3.scaleLinear().domain([0,100]).range([0,20]);
+      var zScale = d3.scaleLinear().domain([0,100]).range([0,11]);
 	  var cScale = d3.scaleLinear().domain([0,100]).range(["grey","blue"]);
 
       myButton = d3.select("body")    
@@ -15,6 +15,14 @@
   		.attr("onclick", "update()");
 
       function update() {
+      	var myUpdate = d3.select("body")
+      		.selectAll("svg")
+      		.remove();
+
+      	myUpdate = d3.select("body")
+      		.selectAll("text")
+      		.remove();
+
       	var mySVG = d3.select("body").append("svg")
 			.attr("width", width + margin.left + margin.right + 40)
 			.attr("height", height + margin.top + margin.bottom + 30)
@@ -24,12 +32,12 @@
 
 		var xAxisGroup = mySVG.append("g")
 			.attr("class","xAxis")
-			.attr("transform","translate(20,"+(height-margin.top+4)+")");
+			.attr("transform","translate(30,"+(height-margin.top+22)+")");
 	  	var xAxis = d3.axisBottom(xScale);
 	  		xAxisGroup.call(xAxis);
 	  	var yAxisGroup = mySVG.append("g")
 			.attr("class","yAxis")
-			.attr("transform","translate(20,1)");
+			.attr("transform","translate(20,10)");
 	  	var yAxis = d3.axisLeft(yScale);
 	  		yAxisGroup.call(yAxis);
 
@@ -66,14 +74,14 @@
 			.append("circle")
 			.attr("transform","translate(20,1)")
 			.attr("r",function(d){return zScale(d[2]);})
-			.attr("cx",function(d){return xScale(d[0]);})
-			.attr("cy",function(d){return yScale(d[1]);})
+			.attr("cx",function(d){return xScale(d[0])+10;})
+			.attr("cy",function(d){return yScale(d[1])+10;})
 			.attr("fill",function(d){return cScale(d[3]);});
 
 		myN = d3.select("body")
 	  		.attr("N", function(d){return N;})
 	  		.append("text")
-			.text("\n N = " + N)
+			.text("\n      N = " + N)
 			.attr("x", 10)
        	 	.attr("y", 29)
        	 	.attr("font-family", "sans-serif")
