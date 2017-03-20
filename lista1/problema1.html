@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+    </head>
+    <body>
+      
+      <script type="text/javascript">
+        var dataset = [["brazil_flag.jpg", 42.5, 0, "15%"],["usa_flag.jpg", 40, 21, "20%"]];
+        var margin = {top: 3, right: 2, bottom: 5, left: 5};
+        var width = 1920 - margin.left - margin.right;
+        var height = 1080 - margin.top - margin.bottom;
+        var mySVG = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        var xScale = d3.scaleLinear().domain([0,100]).range([0, width]);
+        var yScale = d3.scaleLinear().domain([0,100]).range([0, height]);
+
+        mySVG
+          .selectAll("rect")
+          .data(dataset)
+          .enter()
+          .append("image")
+          .attr("xlink:href",function(d){return d[0]})
+          .attr("preserveAspectRatio", "none")
+          .attr("x",function(d){return xScale(d[1]);})
+          .attr("y",function(d){return yScale(d[2]);})
+          .attr("width",function(d){return d[3]})
+          .attr("height", "20%");
+
+
+      </script>
+    </body>
+</html> 
