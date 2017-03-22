@@ -37,7 +37,7 @@
 	  		xAxisGroup.call(xAxis);
 	  	var yAxisGroup = mySVG.append("g")
 			.attr("class","yAxis")
-			.attr("transform","translate(20,10)");
+			.attr("transform","translate(18,10)");
 	  	var yAxis = d3.axisLeft(yScale);
 	  		yAxisGroup.call(yAxis);
 
@@ -72,7 +72,7 @@
 			.data(dataset)
 			.enter()
 			.append("circle")
-			.attr("transform","translate(20,1)")
+			.attr("transform","translate(20, 0)")
 			.attr("r",function(d){return zScale(d[2]);})
 			.attr("cx",function(d){return xScale(d[0])+10;})
 			.attr("cy",function(d){return yScale(d[1])+10;})
