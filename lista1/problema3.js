@@ -2,7 +2,7 @@
 	  var width = 500 - margin.left - margin.right;
       var height = 500 - margin.top - margin.bottom;
 
-	  var xScale = d3.scaleTime().domain([new Date(0, 0, 1), new Date(0, 12, 1)]).range([0,width])
+	  var xScale = d3.scaleTime().domain([new Date(0, 0, 1), new Date(0, 11, 1)]).range([0,width])
       var yScale = d3.scaleLinear().domain([0,100]).range([height,0]);
       var zScale = d3.scaleLinear().domain([0,100]).range([0,11]);
 	  var cScale = d3.scaleLinear().domain([0,100]).range(["grey","blue"]);
@@ -31,11 +31,11 @@
 			")");
 
 		var xAxisGroup = mySVG.append("g")
+			.attr("id", "xAxis")
 			.attr("class","xAxis")
 			.attr("transform","translate(30,"+15+")");
 		var xAxis = d3.axisTop(xScale)
-			.tickFormat(d3.timeFormat("%b"));
-			//.ticksValues([Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]);
+			.tickFormat(d3.timeFormat("%b"))
 	  		xAxisGroup.call(xAxis);
 	  	var yAxisGroup = mySVG.append("g")
 			.attr("class","yAxis")
