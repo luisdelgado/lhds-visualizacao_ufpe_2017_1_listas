@@ -1,4 +1,4 @@
-	  var preDataset = [[27.3, 28, 27.2, 25.1, 23, 21.8, 21.8, 23.3, 23.9, 24.8, 25.9, 26.3],
+	  var preDataset = [[34.2, 34.7, 33.5, 31.4, 29.7, 28.6, 29.3, 33, 35.2, 34.5, 35.3, 33.5],
 	  				    [22.1, 22.4, 21.8, 19.7, 17.4, 16.3, 15.8, 17.1, 17.9, 19, 20.2, 21.1],
 	  				    [18.7, 18.8, 18.2, 16.3, 13.8, 12.4, 11.7, 12.8, 13.9, 15.3, 16.6, 17.7]];
 
@@ -28,8 +28,8 @@
       var height = 500 - margin.top - margin.bottom;
 
 	  var xScale = d3.scaleTime().domain([new Date(0, 0, 1), new Date(0, 11, 1)]).range([0,width])
-      var yScale = d3.scaleLinear().domain([10,30]).range([0, height]);
-	  var cScale = d3.scaleLinear().domain([0,2]).range(["orange", "blue", "grey"]);
+      var yScale = d3.scaleLinear().domain([10,40]).range([0, height]);
+	  var cScale = d3.scaleLinear().domain([0,2]).range(["red", "black", "blue"]);
 
       myButton = d3.select("body")    
   		.append("input")
@@ -69,22 +69,28 @@
 	  		.ticks(7);
 	  		yAxisGroup.call(yAxis);
 
+	  	var myLine = d3.line()
+    		.x(function(d) {return xScale(d[0]);})
+    		.y(function(d) {return yScale(d[1]);})
+    		.curve(d3.curveLinear());
+
 	  	mySVG
 			.selectAll("circle")
 			.data(dataset)
 			.enter()
 			.append("circle")
 			.attr("transform","translate(30, 20)")
-			.attr("r",10)
+			.attr("r",4)
 			.attr("cx",function(d){return xScale(d[0]);})
 			.attr("cy",function(d){return yScale(d[1])+10;})
 			.attr("fill",function(d){if (d[2]==0) {
-				return "orange";
+				d3.curveLinear();
+				return "red";
 			} else {
 				if (d[2]==1) {
-					return "blue";
+					return "black";
 				} else {
-					return "grey";
+					return "blue";
 				}
 			}});
 
