@@ -1,11 +1,35 @@
+	  var preDataset = [[27.3, 28, 27.2, 25.1, 23, 21.8, 21.8, 23.3, 23.9, 24.8, 25.9, 26.3],
+	  				    [22.1, 22.4, 21.8, 19.7, 17.4, 16.3, 15.8, 17.1, 17.9, 19, 20.2, 21.1],
+	  				    [18.7, 18.8, 18.2, 16.3, 13.8, 12.4, 11.7, 12.8, 13.9, 15.3, 16.6, 17.7]];
+
+	  var dataset = [[]];
+
+	  var intensidade = 0;
+	  var mes = 0;
+	  var contador = 0;
+
+	  dataset[contador][0] = new Date (0, mes, 1);
+	  dataset[contador][1] = preDataset[intensidade][mes];
+	  dataset[contador][2] = intensidade;
+
+	  for (; intensidade < 3; intensidade++) {
+	  		mes = 0;
+	  	for (; mes < 12-1; mes++) {
+	  		contador++;
+	  		dataset.push({});
+	  		dataset[contador][0] = new Date (0, mes, 1);
+	  		dataset[contador][1] = preDataset[intensidade][mes];
+	  		dataset[contador][2] = intensidade;
+	  	}
+	  }
+
 	  var margin = {top: 3, right: 2, bottom: 5, left: 5};
 	  var width = 500 - margin.left - margin.right;
       var height = 500 - margin.top - margin.bottom;
 
 	  var xScale = d3.scaleTime().domain([new Date(0, 0, 1), new Date(0, 11, 1)]).range([0,width])
-      var yScale = d3.scaleLinear().domain([0,100]).range([height,0]);
-      var zScale = d3.scaleLinear().domain([0,100]).range([0,11]);
-	  var cScale = d3.scaleLinear().domain([0,100]).range(["grey","blue"]);
+      var yScale = d3.scaleLinear().domain([10,30]).range([0, height]);
+	  var cScale = d3.scaleLinear().domain([0,2]).range(["orange", "blue", "grey"]);
 
       myButton = d3.select("body")    
   		.append("input")
@@ -35,59 +59,33 @@
 			.attr("class","xAxis")
 			.attr("transform","translate(30,"+15+")");
 		var xAxis = d3.axisTop(xScale)
+			.tickSize(0)
 			.tickFormat(d3.timeFormat("%b"))
 	  		xAxisGroup.call(xAxis);
 	  	var yAxisGroup = mySVG.append("g")
 			.attr("class","yAxis")
-			.attr("transform","translate(18,10)");
+			.attr("transform","translate(18,30)");
 	  	var yAxis = d3.axisLeft(yScale)
 	  		.ticks(7);
 	  		yAxisGroup.call(yAxis);
-
-      	var N = Math.floor(Math.random() * (50-10)) + 10;
-	  	var dataset = [[]];
-	  	var x1 = Math.floor(Math.random() * 100);
-	  	var y1 = Math.floor(Math.random() * 100);
-	  	var z1 = Math.floor(Math.random() * 100);
-	  	var w1 = Math.floor(Math.random() * 100);
-	  		dataset[0][0] = x1;
-	  		dataset[0][1] = y1;
-	  		dataset[0][2] = z1;
-	  		dataset[0][3] = w1;
-	  	var copiaN = N;
-	 	var contador = 0;
-
-	 	while (contador < N-1) {
-	  		contador++;
-	  		dataset.push({});
-	  		x1 = Math.floor(Math.random() * 100);
-	  		y1 = Math.floor(Math.random() * 100);
-	  		z1 = Math.floor(Math.random() * 100);
-	  		w1 = Math.floor(Math.random() * 100);
-	  		dataset[contador][0] = x1;
-	  		dataset[contador][1] = y1;
-	  		dataset[contador][2] = z1;
-	  		dataset[contador][3] = w1;
-	  	}
 
 	  	mySVG
 			.selectAll("circle")
 			.data(dataset)
 			.enter()
 			.append("circle")
-			.attr("transform","translate(20, 0)")
-			.attr("r",function(d){return zScale(d[2]);})
-			.attr("cx",function(d){return xScale(d[0])+10;})
+			.attr("transform","translate(30, 20)")
+			.attr("r",10)
+			.attr("cx",function(d){return xScale(d[0]);})
 			.attr("cy",function(d){return yScale(d[1])+10;})
-			.attr("fill",function(d){return cScale(d[3]);});
+			.attr("fill",function(d){if (d[2]==0) {
+				return "orange";
+			} else {
+				if (d[2]==1) {
+					return "blue";
+				} else {
+					return "grey";
+				}
+			}});
 
-		myN = d3.select("body")
-	  		.attr("N", function(d){return N;})
-	  		.append("text")
-			.text("\n      N = " + N)
-			.attr("x", 10)
-       	 	.attr("y", 29)
-       	 	.attr("font-family", "sans-serif")
-       	 	.attr("font-size", "20px")
-       	 	.attr("fill", "red");
       }
