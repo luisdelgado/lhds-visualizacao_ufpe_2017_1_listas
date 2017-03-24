@@ -59,13 +59,11 @@
   		.ticks(7);
   		yAxisGroup.call(yAxis);
 
+  	// Adicionando y gridlines
   	function make_y_gridlines() {		
     	return d3.axisLeft(yScale)
         	.ticks(7)
 	}
-
-
-  	// Adicionando x gridlines
   	mySVG
   		.append("g")			
       	.attr("class", "grid")     	
