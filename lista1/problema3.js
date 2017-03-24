@@ -54,7 +54,7 @@
   		xAxisGroup.call(xAxis);
   	var yAxisGroup = mySVG.append("g")
 		.attr("class","yAxis")
-		.attr("transform","translate(18,30)");
+		.attr("transform","translate(18,15)");
   	var yAxis = d3.axisLeft(yScale)
   		.ticks(7);
   		yAxisGroup.call(yAxis);
@@ -63,7 +63,7 @@
   	var myLine = d3.line()
   		.curve(d3.curveLinear)
    		.x(function(d) {return xScale(d[0])+30;})
-   		.y(function(d) {return yScale(d[1])+30;});
+   		.y(function(d) {return yScale(d[1])+15.75;});
 
    	// Criando pontos
   	mySVG
@@ -71,11 +71,11 @@
 		.data(dataset)
 		.enter()
 		.append("circle")
-		.attr("transform","translate(30, 20)")
+		.attr("transform","translate(30, 10)")
 		.attr("class", "dot")
-		.attr("r",4)
+		.attr("r",0)
 		.attr("cx",function(d){return xScale(d[0]);})
-		.attr("cy",function(d){return yScale(d[1])+10;})
+		.attr("cy",function(d){return yScale(d[1])+6;})
 		.attr("fill",function(d){
 			if (d[2]==0) {
 				return "red";
@@ -110,18 +110,21 @@
 	mySVG
 		.append("path")
      	.data([data])
-     	.attr("fill", "red")
+     	.attr("fill", "none")
+     	.attr("stroke", "red")
      	.attr("class", "line")
      	.attr("d", myLine);
     mySVG
 		.append("path")
      	.data([data2])
-     	.attr("fill", "black")
+     	.attr("fill", "none")
+     	.attr("stroke", "grey")
      	.attr("class", "line")
      	.attr("d", myLine);   
   	mySVG
 		.append("path")
      	.data([data3])
-     	.attr("fill", "blue")
+     	.attr("fill", "none")
+     	.attr("stroke", "blue")
      	.attr("class", "line")
      	.attr("d", myLine);
