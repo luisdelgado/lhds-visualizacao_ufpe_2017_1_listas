@@ -61,6 +61,7 @@
 
   	// Criando linhas
   	var myLine = d3.line()
+  		.curve(d3.curveLinear)
    		.x(function(d) {return xScale(d[0])+30;})
    		.y(function(d) {return yScale(d[1])+30;});
 
