@@ -1,6 +1,6 @@
 	
 	// Fromatando dados
-	var preDataset = [[34.2, 34.7, 33.5, 31.4, 29.7, 28.6, 29.3, 33, 35.2, 34.5, 35.3, 33.5],
+	var preDataset = [[27.3, 28, 27.2, 25.1, 23, 21.8, 21.8, 23.3, 23.9, 24.8, 25.9, 26.3],
 				      [22.1, 22.4, 21.8, 19.7, 17.4, 16.3, 15.8, 17.1, 17.9, 19, 20.2, 21.1],
 	  				  [18.7, 18.8, 18.2, 16.3, 13.8, 12.4, 11.7, 12.8, 13.9, 15.3, 16.6, 17.7]];
 
@@ -32,7 +32,7 @@
 
     // Criando escalas
 	var xScale = d3.scaleTime().domain([new Date(0, 0, 1), new Date(0, 11, 1)]).range([0,width])
-    var yScale = d3.scaleLinear().domain([10,40]).range([0, height]);
+    var yScale = d3.scaleLinear().domain([10,30]).range([0, height]);
 	var cScale = d3.scaleLinear().domain([0,2]).range(["red", "black", "blue"]);
 
 	// Criando SVG
@@ -54,10 +54,27 @@
   		xAxisGroup.call(xAxis);
   	var yAxisGroup = mySVG.append("g")
 		.attr("class","yAxis")
-		.attr("transform","translate(18,15)");
+		.attr("transform","translate(30,15)");
   	var yAxis = d3.axisLeft(yScale)
   		.ticks(7);
   		yAxisGroup.call(yAxis);
+
+  	function make_y_gridlines() {		
+    	return d3.axisLeft(yScale)
+        	.ticks(7)
+	}
+
+
+  	// Adicionando x gridlines
+  	mySVG
+  		.append("g")			
+      	.attr("class", "grid")     	
+      	.attr("transform", "translate(30," + 15 + ")")
+      	.call(make_y_gridlines()
+ 		   	.tickSize(-width)
+ 		   	
+          	.tickFormat("")
+        )
 
   	// Criando linhas
   	var myLine = d3.line()
